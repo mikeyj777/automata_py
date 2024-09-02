@@ -1,0 +1,10 @@
+ideas
+- with enough raw materials, build a system that can produce greater things
+
+- build barriers and shelters
+
+- weather (heat, wind) and predators (letter P's)
+
+- reinforcement learning to better respond to environments
+
+- types of people represented by letters - x/o for gender.  w = worker / q = queen, etc.
