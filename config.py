@@ -22,5 +22,6 @@ class Config:
         ],
         'num_agents': 25,
         'agent_types': ['worker', 'idler'],
-        'max_agents': 75
+        'max_agents': 75,
+        'resolution': (800, 600),
     }

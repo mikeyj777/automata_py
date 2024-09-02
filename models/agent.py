@@ -20,6 +20,8 @@ class Agent:
     def set_color(self):
         colors = Config.SIMULATION_PARAMS['colors']
         self.color = random.choice(colors)
+        self.color = np.array(self.color, dtype=float)
+        self.color /= 255
 
     def update_position(self, bounds):
         self.position += self.velocity
