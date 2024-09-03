@@ -33,6 +33,8 @@ def simulation_thread():
                 return
 
         vis.draw_agents(state)
+        vis.pygame.display.flip()  # Update the display
+        vis.pygame.time.wait(10)  # Add a short delay to control the frame rate
         # logging.debug(f'State retrieved\n\n\n')
         # Ensure state contains 'agents' and it's an array
 
