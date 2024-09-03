@@ -10,8 +10,8 @@ class Config:
         'max_speed': 2.0,
         'task_speed': 3.0,
         'task_threshold': 1.0,
-        'reproduction_probability': 0.01,
-        'max_age': 100,
+        'reproduction_probability': 0.1,
+        'max_age': 2000,
         'colors': [
             (255, 0, 0),
             (0, 255, 0),
@@ -23,5 +23,5 @@ class Config:
         'num_agents': 25,
         'agent_types': ['worker', 'idler'],
         'max_agents': 75,
-        'resolution': (800, 600),
+        'resolution': (800, 800),
     }

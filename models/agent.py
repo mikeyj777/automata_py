@@ -16,6 +16,7 @@ class Agent:
         self.reproduction_probability = Config.SIMULATION_PARAMS['reproduction_probability']
         self.set_color()
         self.age = 0
+        self.lifespan = random.random() * Config.SIMULATION_PARAMS['max_age']
     
     def set_color(self):
         colors = Config.SIMULATION_PARAMS['colors']
@@ -44,15 +45,20 @@ class Agent:
             if distance < params['neighbor_distance']:
                 alignment += agent.velocity
                 cohesion += agent.position
-                separation += (self.position - agent.position) / (distance + 1e-5)
+                separation_factor = 1e-4
+                if (agent.color == self.color).all():
+                    separation_factor /= 10
+                separation += (self.position - agent.position) / (distance + separation_factor)
                 total += 1
         if total > 0:
             alignment /= total
             alignment = (alignment / np.linalg.norm(alignment)) * params['max_speed']
             cohesion = (cohesion / total - self.position)
-            cohesion = (cohesion / np.linalg.norm(cohesion)) * params['max_speed']
+            if np.linalg.norm(cohesion) != 0:
+                cohesion = (cohesion / np.linalg.norm(cohesion)) * params['max_speed']
             separation = separation / total
-            separation = (separation / np.linalg.norm(separation)) * params['max_speed']
+            if np.linalg.norm(separation) != 0:
+                separation = (separation / np.linalg.norm(separation)) * params['max_speed']
             # Update velocity
             self.velocity += params['alignment_weight'] * (alignment - self.velocity)
             self.velocity += params['cohesion_weight'] * cohesion
@@ -73,11 +79,13 @@ class Agent:
         return None
 
     def assign_task(self, nodes, poles, params):
-        if self.state == 'idle' and self.type == 'non existent type':
+        if self.state == 'idle' and self.type != 'non existent type':
             # Assign a new task based on some condition
-            if nodes:
-                target_node = random.choice(nodes)
-                target_pole = random.choice(poles)
+            if len(nodes) > 0 and len(poles) > 0:
+                node_idx = np.random.choice(len(nodes))
+                target_node = nodes[node_idx]
+                pole_idx = np.random.choice(len(poles))
+                target_pole = poles[pole_idx]
                 self.task = {
                     'type': 'carry',
                     'from': target_node,

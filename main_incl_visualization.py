@@ -11,17 +11,17 @@ from config import Config
 
 import logging
 
-num_nodes = 10
-num_poles = 10
+num_nodes = 2
+num_poles = 1
 
 
 pygame.init()
 display = Config.SIMULATION_PARAMS['resolution']
 pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 
-gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
-# glTranslatef(0.0, 0.0, -5)
-glTranslatef(-1.0, -1.0, -2)  # Move the camera closer to the agents
+gluPerspective(30, (display[0] / display[1]), 0.1, 50.0)
+glTranslatef(0.0, 0.0, -5)
+# glTranslatef(-1.0, -1.0, -2)  # Move the camera closer to the agents
 
 
 # Set point size for better visibility
@@ -31,7 +31,7 @@ glPointSize(10)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialize Simulation Engine
-engine = SimulationEngine(bounds=(800, 600), num_nodes=num_nodes, num_poles=num_poles)
+engine = SimulationEngine(bounds=display, num_nodes=num_nodes, num_poles=num_poles)
 engine.initialize_agents(num_agents=Config.SIMULATION_PARAMS['num_agents'])
 
 
