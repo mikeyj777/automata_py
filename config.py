@@ -1,4 +1,5 @@
 # backend/config.py
+import numpy as np
 
 class Config:
     SECRET_KEY = 'your_secret_key'
@@ -10,7 +11,7 @@ class Config:
         'max_speed': 2.0,
         'task_speed': 3.0,
         'task_threshold': 1.0,
-        'reproduction_probability': 0.1,
+        'reproduction_probability': 0.001,
         'max_age': 2000,
         'colors': [
             (255, 0, 0),
@@ -22,6 +23,7 @@ class Config:
         ],
         'num_agents': 25,
         'agent_types': ['worker', 'idler'],
-        'max_agents': 75,
+        'max_agents': np.inf,
         'resolution': (800, 800),
+        'probability_return_home': 0.3
     }

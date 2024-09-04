@@ -87,7 +87,7 @@ class SimulationEngine:
                     if new_agent:
                         new_agents.append(new_agent)
                 agent.assign_task(self.nodes, self.poles, self.params)
-                agent.perform_task(self.params)
+                agent.perform_task(self.nodes, self.poles, self.params)
                 i += 1
             self.agents.extend(new_agents)
 

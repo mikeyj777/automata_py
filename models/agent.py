@@ -93,7 +93,7 @@ class Agent:
                 }
                 self.state = 'carrying'
 
-    def perform_task(self, params):
+    def perform_task(self, nodes, poles, params):
         if self.state == 'carrying' and self.task:
             # Simple task: move towards destination
             destination = np.array(self.task['to'], dtype=float)
@@ -104,5 +104,10 @@ class Agent:
                 self.velocity = direction * params['task_speed']
                 if distance < params['task_threshold']:
                     # Task completed
+                    if random.random() < params['probability_return_home']:
+                        self.task['from'], self.task['to'] = self.task['to'], self.task['from']
+                        return
                     self.state = 'idle'
-                    self.task = None
+                    self.assign_task(nodes, poles, params)
+                    
+                    
